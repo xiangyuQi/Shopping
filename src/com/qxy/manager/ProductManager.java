@@ -33,9 +33,9 @@ public class ProductManager {
 		return dao.loadById(id);
 	}
 	
-	public List<Product> getProducts( int categoryid , int pageNo,int pageSize) {
+	public int getProducts( List<Product> products,int categoryid , int pageNo,int pageSize) {
 		
-		return dao.getProducts(categoryid, pageNo, pageSize);
+		return dao.getProducts(products, categoryid, pageNo, pageSize);
 	}
 	
 	/*public List<Product> getProducts(){

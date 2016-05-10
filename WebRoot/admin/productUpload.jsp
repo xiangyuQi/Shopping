@@ -23,8 +23,8 @@ int id = Integer.parseInt(request.getParameter("id"));
   <input type="file" name="file">
   <input type="submit" name="Submit" value="upload">
 </form>
- 
-    </form>
+ <img src="../images/product/<%=id%>.jpg" />
+  
 <!--   <form name="uploadform" method="POST" action="./servlet/FileUpload" ENCTYPE="multipart/form-data">
 
         <table border="1" width="450" cellpadding="4" cellspacing="2" bordercolor="#9BD7FF">

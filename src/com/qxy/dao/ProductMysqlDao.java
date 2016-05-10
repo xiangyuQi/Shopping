@@ -55,8 +55,8 @@ public class ProductMysqlDao implements ProductDao {
 		return list;
 	}*/
 
-	public List<Product> getProducts( int categoryid , int pageNo,int pageSize) {
-		List<Product> list = new ArrayList<Product>();
+	public	int  getProducts(  List<Product> products ,int categoryid , int pageNo,int pageSize) {
+		int cnt = 0;
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -73,9 +73,9 @@ public class ProductMysqlDao implements ProductDao {
 			stmt = DButil.createStmt(conn);
 			rsCount = DButil.executQuery(stmt, "select count(*) from product where categoryid ="+categoryid);
 			rsCount.next();
-			int max = rsCount.getInt(1);
-			if(pageSize>max) pageSize = max;
-			sql += " order by p.pdate desc limit "+pageNo+","+pageSize;
+			cnt = rsCount.getInt(1);
+			if(pageSize>cnt) pageSize = cnt;
+			sql += " order by p.pdate desc limit "+(pageNo - 1) * pageSize + "," + pageSize;
 			rs = DButil.executQuery(stmt, sql);
 			while (rs.next()) {
 				p = new Product();
@@ -88,7 +88,7 @@ public class ProductMysqlDao implements ProductDao {
 				c.setPid(rs.getInt("pid"));
 				c.setLeaf(rs.getInt("isleaf") == 0 ? true : false);
 				p.setC(c);
-				list.add(p);
+				products.add(p);
 			}
 
 		} catch (SQLException e) {
@@ -100,7 +100,7 @@ public class ProductMysqlDao implements ProductDao {
 			DButil.close(conn);
 		}
 
-		return list;
+		return cnt;
 	}
 	
 	public List<Product> getProducts(int pagNo, int pagSize) {

@@ -113,13 +113,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
-					<li><a href="index.jsp" data-hover="Home">Home</a></li>
-					<li><a href="about.html" data-hover="About Us">About Us</a></li>
-					<li><a href="careers.html" data-hover="Careers">Careers</a></li>
-					<li><a href="contact.html" data-hover="Contact Us">Contact Us</a></li>
-					<li><a href="404.html" data-hover="Company Profile">Company Profile</a></li>
-					<li><a href="register.jsp" data-hover="Company Registration">Company Registration</a></li>
-					<li class="active"><a href="wishlist.html" data-hover="Wish List">Wish List</a></li>
+					<li class="active"><a href="index.jsp" data-hover="Home">Home</a></li>
+					<li><a href="#" data-hover="About Us">About Us</a></li>
+					<li><a href="#" data-hover="Careers">Careers</a></li>
+					<li><a href="#" data-hover="Contact Us">Contact Us</a></li>
+					<li><a href="#" data-hover="Company Profile">Company Profile</a></li>
+					<li><a href="#" data-hover="Company Registration">Company Registration</a></li>
+					<li><a href="#" data-hover="Wish List">Wish List</a></li>
 				 </ul>
 				 <script type="text/javascript" src="script/nav.js"></script>
 	      </div><!-- end h_menu4 -->

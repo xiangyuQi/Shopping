@@ -10,7 +10,7 @@ public interface ProductDao {
 	
 	public List<Product> getProducts(int pagNo,int pagSize);
 	
-	public List<Product> getProducts( int categoryid , int pageNo,int pageSize) ;
+	public	int  getProducts(  List<Product> products ,int categoryid , int pageNo,int pageSize) ;
 	
 	public int  findProducts(
 				List<Product> products,

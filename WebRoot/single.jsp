@@ -1,3 +1,5 @@
+<%@page import="com.qxy.manager.CategoryManager"%>
+<%@page import="com.qxy.entity.Category"%>
 <%@page import="com.qxy.entity.CartItem"%>
 <%@page import="com.qxy.entity.Cart"%>
 <%@page import="java.math.RoundingMode"%>
@@ -50,7 +52,9 @@
 	bd = new BigDecimal(p.getMemberPrice());
 	bd = bd.setScale(2, RoundingMode.HALF_UP); 
 	String memberprice = bd.toString();
-	List<Product> prodcuts = ProductManager.getInstance().getProducts(p.getCategoryId(), 0, 6);
+	List<Product> prodcuts =new ArrayList<Product>();
+	ProductManager.getInstance().getProducts(prodcuts,p.getCategoryId(), 1, 6);
+	List<Category> categorys = CategoryManager.getInstance().getCategories(0);
  %>
 <!DOCTYPE HTML>
 <html>
@@ -121,12 +125,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
 					<li class="active"><a href="index.jsp" data-hover="Home">Home</a></li>
-					<li><a href="about.html" data-hover="About Us">About Us</a></li>
-					<li><a href="careers.html" data-hover="Careers">Careers</a></li>
-					<li><a href="contact.html" data-hover="Contact Us">Contact Us</a></li>
-					<li><a href="404.html" data-hover="Company Profile">Company Profile</a></li>
-					<li><a href="register.html" data-hover="Company Registration">Company Registration</a></li>
-					<li><a href="wishlist.html" data-hover="Wish List">Wish List</a></li>
+					<li><a  data-hover="About Us">About Us</a></li>
+					<li><a  data-hover="Careers">Careers</a></li>
+					<li><a  data-hover="Contact Us">Contact Us</a></li>
+					<li><a  data-hover="Company Profile">Company Profile</a></li>
+					<li><a  data-hover="Company Registration">Company Registration</a></li>
+					<li><a  data-hover="Wish List">Wish List</a></li>
 				 </ul>
 				 <script type="text/javascript" src="script/nav.js"></script>
 	      </div><!-- end h_menu4 -->
@@ -152,71 +156,28 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	   	 <div class="sidebar">
 			<div class="menu_box">
 		    <h3 class="menu_head">Products Menu</h3>
-			  <ul class="menu">
-				<li class="item1"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/> Man</a>
+			<ul class="menu">
+			  <li><ul>
+			  	<%
+			  		for(int i=0;i<categorys.size();i++){
+			  			Category c = categorys.get(i);
+			  			if(c.getPid()==0){
+			  	 %>
+			  	 </ul>
+			  	 </li>
+				 <li class="item1"><a href=""><img class="arrow-img" src="images/f_menu.png" alt=""/><%=c.getName() %></a>
 					<ul class="cute">
-						<li class="subitem1"><a href="#">Cute Kittens </a></li>
-						<li class="subitem2"><a href="#">Strange Stuff </a></li>
-						<li class="subitem3"><a href="#">Automatic Fails </a></li>
-					</ul>
-				</li>
-				<li class="item2"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/>Women</a>
-					<ul class="cute">
-						<li class="subitem1"><a href="#">Cute Kittens </a></li>
-						<li class="subitem2"><a href="#">Strange Stuff </a></li>
-						<li class="subitem3"><a href="#">Automatic Fails </a></li>
-					</ul>
-				</li>
-				<li class="item3"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/>Fashion 2015</a>
-					<ul class="cute">
-						<li class="subitem1"><a href="#">Cute Kittens </a></li>
-						<li class="subitem2"><a href="#">Strange Stuff </a></li>
-						<li class="subitem3"><a href="#">Automatic Fails</a></li>
-					</ul>
-				</li>
-				<li class="item4"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/>Kids</a>
-					<ul class="cute">
-						<li class="subitem1"><a href="#">Cute Kittens </a></li>
-						<li class="subitem2"><a href="#">Strange Stuff </a></li>
-						<li class="subitem3"><a href="#">Automatic Fails </a></li>
-					</ul>
-				</li>
-				<li class="item5"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/>Jeans</a>
-					<ul class="cute">
-						<li class="subitem1"><a href="#">Cute Kittens </a></li>
-						<li class="subitem2"><a href="#">Strange Stuff </a></li>
-						<li class="subitem3"><a href="#">Automatic Fails </a></li>
-					</ul>
-				</li>
-				<li class="item6"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/>Tshirt</a>
-					<ul class="cute">
-						<li class="subitem1"><a href="#">Cute Kittens </a></li>
-						<li class="subitem2"><a href="#">Strange Stuff </a></li>
-						<li class="subitem3"><a href="#">Automatic Fails </a></li>
-					</ul>
-				</li>
-				<li class="item7"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/>Top Fashion</a>
-					<ul class="cute">
-						<li class="subitem1"><a href="#">Cute Kittens </a></li>
-						<li class="subitem2"><a href="#">Strange Stuff </a></li>
-						<li class="subitem3"><a href="#">Automatic Fails </a></li>
-					</ul>
-				</li>
-				<li class="item8"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/>Summer Collection</a>
-					<ul class="cute">
-						<li class="subitem1"><a href="#">Cute Kittens </a></li>
-						<li class="subitem2"><a href="#">Strange Stuff </a></li>
-						<li class="subitem3"><a href="#">Automatic Fails </a></li>
-					</ul>
-				</li>
-				<li class="item9"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/>Special Offer</a>
-					<ul class="cute">
-						<li class="subitem1"><a href="#">Cute Kittens </a></li>
-						<li class="subitem2"><a href="#">Strange Stuff </a></li>
-						<li class="subitem3"><a href="#">Automatic Fails </a></li>
-					</ul>
-				</li>
-			</ul>
+				<%
+					}else{
+				 %>
+						<li class="subitem1"><a href="productList.jsp?categoryid=<%=c.getId()%>"><%=c.getName() %> </a></li>
+						<!--  <li class="subitem2"><a href="#">Strange Stuff </a></li>
+						<li class="subitem3"><a href="#">Automatic Fails </a></li>-->
+			
+				<%
+					}}
+				 %>
+				</ul>
 		</div>
 				<!--initiate accordion-->
 		<script type="text/javascript">
@@ -396,10 +357,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			  </div>
 		<h3 class="single_head">Related Products</h3>	
 	    <div class="related_products">
-	     <div class="col-md-4 top_grid1-box1 top_grid2-box2"><a href="single.html">
+	     
 	     	<%
 	     		for(int i=0;i<prodcuts.size();i++){
 	     			Product p1 = prodcuts.get(i);
+	     			if(p1.getId() ==id)continue;
 	     			BigDecimal bd1 = new BigDecimal(p1.getNormalPrice());  
         			bd1 = bd1.setScale(2, RoundingMode.HALF_UP);  
 	    			String price = bd.toString();
@@ -407,22 +369,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	    			String strint = intvalue.toString();
 	    			String floatvalue = price.replaceFirst(strint,"");
 	     	 %>
+	     	<div class="col-md-4 top_grid1-box1 top_grid2-box2"><a href="single.jsp">
 	     	<div class="grid_1">
 	     	  <div class="b-link-stroke b-animate-go  thickbox">
-		        <img src="images/p12.jpg" class="img-responsive" alt=""/> </div>
+		        <img src="images/product/<%=p1.getId()%>.jpg" class="img-responsive" alt=""/> </div>
 	     	  <div class="grid_2">
 	     	  	<p><%=p1.getName() %></p>
 	     	  	<ul class="grid_2-bottom">
 	     	  		<li class="grid_2-left"><p><%=intvalue%><small><%=floatvalue%></small></p></li>
-	     	  		<li class="grid_2-right"><a href="single.html" title="Get It" class="btn btn-primary btn-normal btn-inline " target="_self">Get It</a></li>
+	     	  		<li class="grid_2-right"><a href="single.jsp" title="Get It" class="btn btn-primary btn-normal btn-inline " target="_self">Get It</a></li>
 	     	  		<div class="clearfix"> </div>
 	     	  	</ul>
 	     	  </div>
 	     	</div>
+	      </div>
 	     	<%
 	     		}
 	     	 %>
-	     </div>
+	 
 	  
 	    
 	     <div class="clearfix"> </div>

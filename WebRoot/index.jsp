@@ -1,11 +1,17 @@
+<%@page import="com.qxy.manager.CategoryManager"%>
 <%@page import="java.math.RoundingMode"%>
 <%@page import="java.math.BigDecimal"%>
 <%@page import="com.qxy.manager.ProductManager"%>
 <%@ page language="java" import="java.util.*,com.qxy.entity.*" pageEncoding="UTF-8"%>
 <%
+	Cart cart = (Cart)session.getAttribute("cart");
+	if(cart==null){
+		cart = new Cart();
+		session.setAttribute("cart", cart);
+	}
 	int num = 6;
 	List<Product> products = ProductManager.getInstance().getLatestProduct(num);
-
+	List<Category> categorys = CategoryManager.getInstance().getCategories(0);
  %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -46,7 +52,7 @@
 			<ul class="shopping_grid">
 			      <a href="register.jsp"><li>Join</li></a>
 			      <a href="login.jsp"><li>Sign In</li></a>
-			      <a href="#"><li><span class="m_1">Shopping Bag</span>&nbsp;&nbsp;(0) &nbsp;<img src="images/bag.png" alt=""/></li></a>
+			      <a href="cart.jsp"><li><span class="m_1">Shopping Bag</span>&nbsp;&nbsp;(<%=cart.getItems().size()%>) &nbsp;<img src="images/bag.png" alt=""/></li></a>
 			      <div class="clearfix"> </div>
 			</ul>
 		    <div class="clearfix"> </div>
@@ -57,12 +63,12 @@
 				<a class="toggleMenu" href="#">Menu</a>
 				<ul class="nav">
 					<li class="active"><a href="index.jsp" data-hover="Home">Home</a></li>
-					<li><a href="about.html" data-hover="About Us">About Us</a></li>
-					<li><a href="careers.html" data-hover="Careers">Careers</a></li>
-					<li><a href="contact.html" data-hover="Contact Us">Contact Us</a></li>
-					<li><a href="404.html" data-hover="Company Profile">Company Profile</a></li>
-					<li><a href="register.jsp" data-hover="Company Registration">Company Registration</a></li>
-					<li><a href="wishlist.html" data-hover="Wish List">Wish List</a></li>
+					<li><a href="#" data-hover="About Us">About Us</a></li>
+					<li><a href="#" data-hover="Careers">Careers</a></li>
+					<li><a href="#" data-hover="Contact Us">Contact Us</a></li>
+					<li><a href="#" data-hover="Company Profile">Company Profile</a></li>
+					<li><a href="#" data-hover="Company Registration">Company Registration</a></li>
+					<li><a href="#" data-hover="Wish List">Wish List</a></li>
 				 </ul>
 				 <script type="text/javascript" src="script/nav.js"></script>
 	      </div><!-- end h_menu4 -->
@@ -113,14 +119,29 @@
 			<div class="menu_box">
 		    <h3 class="menu_head">Products Menu</h3>
 			  <ul class="menu">
-				<li class="item1"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/> Man</a>
+			  <li><ul>
+			  	<%
+			  		for(int i=0;i<categorys.size();i++){
+			  			Category c = categorys.get(i);
+			  			if(c.getPid()==0){
+			  	 %>
+			  	 </ul>
+			  	 </li>
+				 <li class="item1"><a href=""><img class="arrow-img" src="images/f_menu.png" alt=""/><%=c.getName() %></a>
 					<ul class="cute">
-						<li class="subitem1"><a href="#">Cute Kittens </a></li>
-						<li class="subitem2"><a href="#">Strange Stuff </a></li>
-						<li class="subitem3"><a href="#">Automatic Fails </a></li>
-					</ul>
+				<%
+					}else{
+				 %>
+						<li class="subitem1"><a href="productList.jsp?categoryid=<%=c.getId()%>"><%=c.getName() %> </a></li>
+						<!--  <li class="subitem2"><a href="#">Strange Stuff </a></li>
+						<li class="subitem3"><a href="#">Automatic Fails </a></li>-->
+			
+				<%
+					}}
+				 %>
+				</ul>
 				</li>
-				<li class="item2"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/>Women</a>
+				<!--  <li class="item2"><a href="#"><img class="arrow-img" src="images/f_menu.png" alt=""/>Women</a>
 					<ul class="cute">
 						<li class="subitem1"><a href="#">Cute Kittens </a></li>
 						<li class="subitem2"><a href="#">Strange Stuff </a></li>
@@ -176,6 +197,7 @@
 						<li class="subitem3"><a href="#">Automatic Fails </a></li>
 					</ul>
 				</li>
+				-->
 			</ul>
 		</div>
 				<!--initiate accordion-->
@@ -269,7 +291,7 @@
 	     <h4 class="head"><span class="m_2">Latest</span> Products </h4>
 	    <div class="top_grid2">
 	    	<%
-	    		for(int i=0;i<num;i++){
+	    		for(int i=0;i<products.size();i++){
 	    			Product p = products.get(i);
 	    			// to comlpex should simple
 	    			BigDecimal bd = new BigDecimal(p.getNormalPrice());  
